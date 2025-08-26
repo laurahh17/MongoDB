@@ -1,0 +1,100 @@
+//criar banco de dados e usar banco de dados
+SQL: create database aulaMongoDB;
+use aulaMongoDB;
+
+//inserir documentos na criação 'produtos'
+SQL: insert into produtos(id, nomeProduto, descricaoProduto, dataValidade, tipo, precoCompra, precoVenda)
+values (1, 'Leite Longa Vida', 'Embalagem 1 Litro', '2024-06-30', 'Laticínio', 2.75, 4.88);
+
+db.produtos.insertOne({
+    _id: 1,
+    nomeProduto: "Leite Longa Vida",
+    descricaoProduto: "Embalagem 1 Litro",
+    dataValidade: new Date("2024-06-30"),
+    tipo: "Laticínio",
+    precoCompra: 2.75,
+    precoVenda: 4.88
+});
+
+//Inserindo vários documentos
+db.produtos.insertMany([
+{
+    _id: 2,
+    nomeProduto: "Bom Bil",
+    descricaoProduto: "Palha de aço de uso doméstico",
+    dataValidade: null,
+    tipo: "Palha de aço",
+    precoCompra: 5,
+    precoVenda: 7.5
+},
+{
+    _id: 3,
+    nomeProduto: "Smart TV LG",
+    descricaoProduto: "UHD 4K 60pol",
+    dataValidade: null,
+    tipo: "Eletronico",
+    precoCompra: 2500,
+    precoVenda: null
+}
+]);
+
+//Excluindo documentos
+//excluir documentos da coleção 'produtos'
+//excluir  produto com _id igual a 1
+SQL: delete from produtos where id = 1
+db.produtos.deleteOne({_id: 1});
+
+//excluir todos os produtos que custam 5 reais
+SQL: delete from produtos where precoCompra = 5;
+db.produtos.deleteMany({precoCompra: 5});
+
+//Atualizando documentos
+//atualizar documentos na coleção 'produtos'
+//atualizar nomeProduto para 'Leite Tipo A' onde _id é 1
+SQL: update produtos set nomeProduto = 'Leite Tipo A' where id: ';
+db.produtos.updateOne(
+    {_id: 1},
+    {$set: { nomeProduto: "Leite Tipo A"} }
+);
+
+//atualizar descricaoProduto e precoCompra onde _id é 1
+SQL: update produtos set descricaoProduto = 'Garrafa 1 Litro',
+       precoCompra = 6.89 where id = 1;
+db.produtos.updateOne(
+    { _id: 1},
+    {$set: { descricaoProduto: "Garrafa 1 Litro", precoCompra: 6.89} }
+);
+
+//Atualizando documentos com cálculos
+//Preço de venda é sempre 30% superior ao preço de compra
+SQL: update produtos set precoVenda = precoCompra * 1.3;
+db.produtos.updateMany(
+ {},
+ { $mul: { precoVenda: 1.3 } }
+);
+
+// Conceder 10% de desconto aos produtos que custem mais de R$100
+SQL: update produtos set precoVenda = precoVenda * 0.9 where precoVenda > 100;
+db.produtos.updateMany(
+ { precoVenda: { $gt: 100 } },
+ { $mul: { precoVenda: 0.9 } }
+);
+
+/// Aplicar 3% de aumento (ao preço de venda) aos produtos com preço entre R$5 e R$10
+SQL: update produtos set precoVenda = precoVenda * 1.03 where precoVenda >= 5 and precoVenda <= 10;
+db.produtos.updateMany(
+ { precoVenda: { $gte: 5, $lte: 10 } },
+ { $mul: { precoVenda: 1.03 } }
+);
+
+// Conceder 2% de desconto a todos os produtos do setor ELETRONICO que custem menos de R$3000
+SQL: update produtos set precoVenda = precoVenda * 0.98 where tipo = 'ELETRONICO' and precoVenda < 3000;
+db.produtos.updateMany(
+ { tipo: "Eletronico", precoVenda: { $lt: 3000 } },
+ { $mul: { precoVenda: 0.98 } }
+);
+
+//Visualizar os documentos
+// 5. Selecionar todos os documentos da coleção 'produtos'
+SQL: select * from produtos;
+db.produtos.find();
