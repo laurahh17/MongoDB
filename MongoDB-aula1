@@ -41,7 +41,7 @@ db.produtos.insertMany([
 //Excluindo documentos
 //excluir documentos da coleção 'produtos'
 //excluir  produto com _id igual a 1
-SQL: delete from produtos where id = 1
+//SQL: delete from produtos where id = 1
 db.produtos.deleteOne({_id: 1});
 
 //excluir todos os produtos que custam 5 reais
@@ -51,7 +51,7 @@ db.produtos.deleteMany({precoCompra: 5});
 //Atualizando documentos
 //atualizar documentos na coleção 'produtos'
 //atualizar nomeProduto para 'Leite Tipo A' onde _id é 1
-SQL: update produtos set nomeProduto = 'Leite Tipo A' where id: ';
+//SQL: update produtos set nomeProduto = 'Leite Tipo A' where id: ';
 db.produtos.updateOne(
     {_id: 1},
     {$set: { nomeProduto: "Leite Tipo A"} }
@@ -96,5 +96,5 @@ db.produtos.updateMany(
 
 //Visualizar os documentos
 // 5. Selecionar todos os documentos da coleção 'produtos'
-SQL: select * from produtos;
+//SQL: select * from produtos;
 db.produtos.find();
