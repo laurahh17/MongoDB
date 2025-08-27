@@ -4,7 +4,7 @@ use aulaMongoDB;
 
 //inserir documentos na criação 'produtos'
 //SQL: insert into produtos(id, nomeProduto, descricaoProduto, dataValidade, tipo, precoCompra, precoVenda)
-values (1, 'Leite Longa Vida', 'Embalagem 1 Litro', '2024-06-30', 'Laticínio', 2.75, 4.88);
+//values (1, 'Leite Longa Vida', 'Embalagem 1 Litro', '2024-06-30', 'Laticínio', 2.75, 4.88);
 
 db.produtos.insertOne({
     _id: 1,
