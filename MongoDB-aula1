@@ -59,7 +59,7 @@ db.produtos.updateOne(
 
 //atualizar descricaoProduto e precoCompra onde _id é 1
 //SQL: update produtos set descricaoProduto = 'Garrafa 1 Litro',
-       precoCompra = 6.89 where id = 1;
+       //precoCompra = 6.89 where id = 1;
 db.produtos.updateOne(
     { _id: 1},
     {$set: { descricaoProduto: "Garrafa 1 Litro", precoCompra: 6.89} }
