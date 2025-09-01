@@ -154,7 +154,7 @@ app.post('/livros', async (req,res) => {
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-
+                                                        //ao colocar o 1 vai aparecer e se colocar 0 ele nao vai aparecer
         const livros = await collection.find({}, { projection: { _id: 1, titulo: 1, autor: 1, editora: 1}}).toArray();
         
         res.json(livros);
@@ -169,4 +169,3 @@ app.post('/livros', async (req,res) => {
 app.listen(port, () => {
     console.log(`Servidor Node.js em execução em https://localhost:${port}`);
 });
-
