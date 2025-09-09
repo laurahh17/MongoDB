@@ -15,7 +15,7 @@ transporte: "Incluso"
 
 db.avaliações.insertOne({
 destino: "Tóquio",
-avaliação: 5,
+avaliações: 5,
 comentário: "Incrível experiência cultural!"
 });
 
@@ -52,5 +52,14 @@ db.pacotes.updateOne(
   {$mul: {preco: 0.85}}
 );
 
-//fazer do 11 para baixo e adicionar mais destinos
-//criar coleções: avaliações, clientes, destinos, pacotes, reservas.
+db.avaliações.updateOne(
+  {destino: "Tóquio"},
+  {$set: {avaliações: 6}}
+);
+
+db.clientes.updateOne(
+  {nome: "João Silva"},
+  {$set: {email: "novo.email@examplo.com"}}
+);
+
+//fazer do 13 para baixo e adicionar mais destinos
