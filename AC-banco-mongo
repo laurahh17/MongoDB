@@ -53,3 +53,4 @@ db.pacotes.updateOne(
 );
 
 //fazer do 11 para baixo e adicionar mais destinos
+//criar coleções: avaliações, clientes, destinos, pacotes, reservas.
