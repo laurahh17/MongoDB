@@ -1,0 +1,55 @@
+db.destinos.insertOne({
+destino_turistico: "Paris",
+pais: "França",
+atracoes: "Torre Eiffel",
+custo_diario: 150,
+avaliacao: 4.8
+});
+
+db.pacotes.insertOne({
+pacote_viagem: "Aventura na Amazônia",
+duracao_dias: 7,
+preco: 1200,
+transporte: "Incluso"
+});
+
+db.avaliações.insertOne({
+destino: "Tóquio",
+avaliação: 5,
+comentário: "Incrível experiência cultural!"
+});
+
+db.clientes.insertOne({
+nome: "João Silva",
+email: "joao.silva@example.com",
+destino_interesse: "Nova York"
+});
+
+db.reservas.insertOne({
+cliente: "Maria Santos",
+destino: "Bali",
+data_partida: "2024-07-15",
+data_retorno: "2024-07-25"
+});
+
+db.destinos.updateOne(
+  {},
+  {$mul: {custo_diario: 1.10}}
+);
+
+db.destinos.updateOne(
+  {destino_turistico: "Paris"},
+  {$set: {avaliacao: 4.9}}
+);
+
+db.pacotes.updateOne(
+	{pacote_viagem: "Aventura na Amazônia"},
+	{$set: {duracao_dias: 10}}
+);
+
+db.pacotes.updateOne(
+  {pacote_viagem: "Aventura na Amazônia"},
+  {$mul: {preco: 0.85}}
+);
+
+//fazer do 11 para baixo e adicionar mais destinos
