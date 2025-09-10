@@ -15,8 +15,8 @@ transporte: "Incluso"
 
 db.avaliações.insertOne({
 destino: "Tóquio",
-avaliações: 5,
-comentário: "Incrível experiência cultural!"
+avaliacoes: 5,
+comentario: "Incrível experiência cultural!"
 });
 
 db.clientes.insertOne({
