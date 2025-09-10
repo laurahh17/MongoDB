@@ -65,7 +65,7 @@ db.pacotes.updateOne(
 
 db.avaliações.updateOne(
   {destino: "Tóquio"},
-  {$set: {avaliações: 6}}
+  {$set: {avaliacoes: 6}}
 );
 
 db.clientes.updateOne(
