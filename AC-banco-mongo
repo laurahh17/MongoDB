@@ -106,8 +106,8 @@ db.avaliações.updateOne(
 db.reservas.deleteOne({ status_viagem: "Cancelada" });
 
 db.destinos.updateOne(
-{pais: "França"},
-{$unset: {atracoes: "Torre Eiffel" }}
+  {pais: "França"},
+  {$set: {atracoes: "Arco do Triunfo"}}
 );
 
 db.clientes.deleteOne({ nome: "João Silva" });
