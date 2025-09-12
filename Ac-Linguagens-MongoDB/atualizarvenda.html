@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Venda</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Atualizar Venda</h1>
+                        <form action="/atualizarvenda" method="post">
+                            <input type="hidden" id="id" name="id">
+                            <div class="form-group">
+                                <label for="dataCompra">Data da Compra:</label>
+                                <input type="date" class="form-control" id="dataCompra" name="dataCompra" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="infoPaciente">Informações do Paciente:</label>
+                                <textarea class="form-control" id="infoPaciente" name="infoPaciente" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="infoMedicamento">Informações do Medicamento:</label>
+                                <textarea class="form-control" id="infoMedicamento" name="infoMedicamento" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantMedicamento">Quantidade do Medicamento:</label>
+                                <input type="number" class="form-control" id="quantMedicamento" name="quantMedicamento" required>
+                            </div>
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Atualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id) {
+                fetch(`/venda/${id}`)
+                    .then(response => response.json())
+                    .then(venda => {
+                        document.getElementById('id').value = venda._id;
+                        document.getElementById('dataCompra').value = venda.dataCompra;
+                        document.getElementById('infoPaciente').value = venda.infoPaciente;
+                        document.getElementById('infoMedicamento').value = venda.infoMedicamento;
+                        document.getElementById('quantMedicamento').value = venda.quantMedicamento;
+                    })
+                    .catch(error => console.error('Erro ao carregar dados da venda:', error));
+            }
+        })
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Vendas</h1>
+                        <div class="text-center mb-4">
+                            <a class="btn btn-primary" href="/cadastrovenda" role="button">Cadastrar Vendas</a>
+                            <a class="btn btn-primary" href="/" role="button">Voltar para o Início</a>
+                        </div>
+                        <h2 class="text-center">Lista de Vendas</h2>
+                        <table class="table table-bordered text-center">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Data da Compra</th>
+                                    <th>Informações do Paciente</th>
+                                    <th>Informações do Medicamento</th>
+                                    <th>Quantidade Comprada</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vendas-tabela">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/vendas')
+            .then(response => response.json())  
+            .then(vendas => {
+                const tabela = document.getElementById('vendas-tabela');
+                tabela.innerHTML = vendas.map(venda => `
+                <tr>
+                    <td>${venda.dataCompra}</td>
+                    <td>${venda.infoPaciente}</td>
+                    <td>${venda.infoMedicamento}</td>
+                    <td>${venda.quantMedicamento}</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="/atualizarvenda?id=${venda._id}" class="btn btn-warning">Atualizar</a>
+                            <form action="/deletarvenda" method="post" onsubmit="return confirm('Tem certeza que deseja excluir esta venda?')">
+                                <input type="hidden" name="id" value="${venda._id}">
+                                <button type="submit" class="btn btn-danger">Deletar</button>
+                            </form>
+                        </div>     
+                    </td>
+                </tr>
+            `).join('');
+        })
+        .catch(error => console.error('Erro ao carregar venda:', error));
+    });
+    </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

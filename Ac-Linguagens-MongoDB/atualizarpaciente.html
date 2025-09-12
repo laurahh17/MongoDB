@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Paciente</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Atualizar Paciente</h1>
+                        <form action="/atualizarpaciente" method="post">
+                            <input type="hidden" id="id" name="id">
+                            <div class="form-group">
+                                <label for="nomeCompleto">Nome Completo:</label>
+                                <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataNascimento">Data de Nascimento:</label>
+                                <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentoId">CPF:</label>
+                                <input type="number" class="form-control" id="documentoId" name="documentoId" required>
+                            </div>
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Atualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id) {
+                fetch(`/paciente/${id}`)
+                    .then(response => response.json())
+                    .then(paciente => {
+                        document.getElementById('id').value = paciente._id;
+                        document.getElementById('nomeCompleto').value = paciente.nomeCompleto;
+                        document.getElementById('dataNascimento').value = paciente.dataNascimento;
+                        document.getElementById('documentoId').value = paciente.documentoId;
+                    })
+                    .catch(error => console.error('Erro ao carregar dados do paciente:', error));
+            }
+        })
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+</body>
+</html>

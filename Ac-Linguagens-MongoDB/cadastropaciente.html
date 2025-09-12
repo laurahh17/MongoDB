@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Paciente</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Cadastro do Paciente</h1>
+                        <form action="/cadastropaciente" method="post">
+                            <div class="form-group">
+                                <label for="nomeCompleto">Nome Completo:</label>
+                                <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataNascimento">Data de Nascimento:</label>
+                                <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentoId">CPF:</label>
+                                <input type="number" class="form-control" id="documentoId" name="documentoId" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Cadastrar Paciente</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+</body>
+</html>
