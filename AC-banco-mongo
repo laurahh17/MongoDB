@@ -1,10 +1,21 @@
-db.destinos.insertOne({
-destino_turistico: "Paris",
-pais: "França",
-atracoes: "Torre Eiffel",
-custo_diario: 150,
-avaliacao: 4.8
-});
+use Viagens
+
+db.destinos.insertMany([
+{
+	destino_turistico: "Paris",
+	pais: "França",
+	atracoes: "Torre Eiffel",
+	custo_diario: 150,
+	avaliacao: 4.8
+},
+{
+	destino_turistico: "Tóquio",
+	pais: "Japão",
+	atracoes: "Shibuya",
+	custo_diario: 200,
+	avaliacao: 5
+}
+]);
 
 db.pacotes.insertOne({
 pacote_viagem: "Aventura na Amazônia",
@@ -19,29 +30,42 @@ avaliacoes: 5,
 comentario: "Incrível experiência cultural!"
 });
 
-db.clientes.insertOne({
-nome: "João Silva",
-email: "joao.silva@example.com",
-destino_interesse: "Nova York"
-});
+db.clientes.insertMany([
+{
+	nome: "Maria Santos",
+	email: "maria.santos@example.com",
+	destino_interesse: "Bali"
+},
+{
+	nome: "Laura Novaes",
+	email: "laura.novaes@example.com",
+	destino_interesse: "Rio de Janeiro"
+},
+{
+	nome: "João Silva",
+	email: "joao.silva@example.com",
+	destino_interesse: "Nova York"
+}
+]);
 
-db.reservas.insertOne({
-cliente: "Maria Santos",
-destino: "Bali",
-data_partida: "2024-07-15",
-data_retorno: "2024-07-25",
-status_viagem: "Pendente"
-});
 
-db.reservas.insertOne({
-cliente: "Laura Novaes",
-destino: "Rio de Janeiro",
-data_partida: "2024-07-10",
-data_retorno: "2024-07-30",
-status_viagem: "Cancelada"
-});
+db.reservas.insertMany([
+{
+	cliente: "Maria Santos",
+	destino: "Bali",
+	data_partida: "2024-07-15",
+	data_retorno: "2024-07-25",
+	status_viagem: "Pendente"
+},
+{
+	cliente: "Laura Novaes",
+	destino: "Rio de Janeiro",
+	data_partida: "2024-07-10",
+	data_retorno: "2024-07-30",
+	status_viagem: "Cancelada"
+}
+]);
 
-.
 
 db.destinos.updateOne(
   {pais: "França"},
@@ -70,7 +94,7 @@ db.avaliações.updateOne(
 
 db.clientes.updateOne(
   {nome: "João Silva"},
-  {$set: {email: "novo.email@examplo.com"}}
+  {$set: {email: "joao.camargosilva@gmail.com"}}
 );
 
 db.destinos.updateOne(
@@ -83,10 +107,6 @@ db.reservas.updateOne(
   {$set: {status_viagem: "Confirmada"}}
 );
 
-db.clientes.updateOne(
-  {nome: "João Silva"},
-  {$set: {destino_interesse: "Nova York, Tóquio"}}
-);
 
 db.pacotes.updateOne(
   {pacote_viagem: "Aventura na Amazônia"},
@@ -100,7 +120,7 @@ db.destinos.updateOne(
 
 db.avaliações.updateOne(
   {destino: "Tóquio"},
-  {$set: {avaliações: 3}}
+  {$set: {avaliacoes: 3}}
 );
 
 db.reservas.deleteOne({ status_viagem: "Cancelada" });
