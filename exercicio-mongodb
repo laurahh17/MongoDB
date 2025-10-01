@@ -1,0 +1,65 @@
+use cadastroVeiculos
+
+//insira 10 veiculos com 3 placas de começo DAB
+db.veiculos.insertMany([
+ { Placa: "DAB1234", Marca: "CHEVROLET", Modelo: "Onix", Cor: "Preto", Opcionais: "Arcondicionado", Ano: 2018, ValorCompra: 50000, ValorVenda: 70000 },
+ { Placa: "DAB5678", Marca: "CHEVROLET", Modelo: "Cruze", Cor: "Branco", Opcionais: "", Ano: 2016, ValorCompra: 60000, ValorVenda: 80000 },
+ { Placa: "DAB9876", Marca: "CHEVROLET", Modelo: "Cobalt", Cor: "Prata", Opcionais: "Multimídia", Ano: 2014, ValorCompra: 55000, ValorVenda: 75000 },
+ { Placa: "ABC1234", Marca: "VOLKS", Modelo: "Golf", Cor: "Vermelho", Opcionais: "Teto solar", Ano: 2013, ValorCompra: 65000, ValorVenda: 85000 },
+ { Placa: "BCD2345", Marca: "VOLKS", Modelo: "Polo", Cor: "Azul", Opcionais: "", Ano: 2017, ValorCompra: 58000, ValorVenda: 78000 },
+ { Placa: "CDE3456", Marca: "VOLKS", Modelo: "Up", Cor: "Verde", Opcionais: "Ar-condicionado", Ano: 2015, ValorCompra: 42000, ValorVenda: 60000 },
+ { Placa: "EFG4567", Marca: "FORD", Modelo: "Fiesta", Cor: "Cinza", Opcionais: "Direção elétrica", Ano: 2011, ValorCompra: 45000, ValorVenda: 55000 },
+ { Placa: "FGH5678", Marca: "FORD", Modelo: "Focus", Cor: "Preto", Opcionais: "Ar-condicionado", Ano: 2010, ValorCompra: 40000, ValorVenda: 50000 },
+ { Placa: "GHI6789", Marca: "FORD", Modelo: "Fusion", Cor: "Branco", Opcionais: "Banco de couro", Ano: 2012, ValorCompra: 68000, ValorVenda: 90000 },
+ { Placa: "HIJ7890", Marca: "FIAT", Modelo: "Palio", Cor: "Amarelo", Opcionais: "", Ano: 1998, ValorCompra: 30000, ValorVenda: 40000 }
+]);
+
+//Selecionar todos os veículos
+db.veiculos.find();
+
+//Selecionar veículos por ordem crescente de Modelo
+db.veiculos.find().sort({ Modelo: 1 });
+
+//Selecionar veículos por ordem decrescente de valor de venda
+db.veiculos.find().sort({ ValorVenda: -1 });
+
+//Selecionar veículos por ordem crescente de ano
+db.veiculos.find().sort({ Ano: 1 });
+
+//Selecionar veículos cuja placa comece com DAB
+db.veiculos.find({ Placa: /^DAB/ });
+
+//Selecionar todos os veículos da marca CHEVROLET
+db.veiculos.find({ Marca: "CHEVROLET" });
+
+//Exibir a contagem total de veículos na tabela
+db.veiculos.countDocuments();
+
+//Exibir somente os carros com ano inferior a 2010
+db.veiculos.find({ Ano: { $lt: 2010 } });
+
+//Exibir a contagem de veículos cujo ano esteja entre 2011 e 2016
+db.veiculos.countDocuments({ Ano: { $gte: 2011, $lte: 2016 } });
+
+//Exibir veículos com valores de compra entre R$ 50.000,00 e R$ 65.000,00
+db.veiculos.find({ ValorCompra: { $gte: 50000, $lte: 65000 } });
+
+//Exibir veículos que tenham opcionais (campo Opcionais não vazio)
+//Obs.: $ne (abreviação de "not equal" ou "diferente de")
+db.veiculos.find({ Opcionais: { $ne: "" } });
+
+//Exibir veículos Volks, com valor de venda superior a R$ 30.000,00 e ano entre 2013 e 2017
+db.veiculos.find({ Marca: "VOLKS", ValorVenda: { $gt: 30000 }, Ano: { $gte: 2013, $lte: 2017 } });
+
+//Exibir todos os veículos Ford, do ano 2011, com opcionais em ordem crescente de modelo
+db.veiculos.find({ Marca: "FORD", Ano: 2011, Opcionais: { $ne: "" } }).sort({ Modelo: 1 });
+
+//Selecionar o carro mais antigo
+db.veiculos.aggregate([
+ { $group: { _id: null, carroMaisAntigo: { $min: "$Ano" } } }
+]);
+
+//Selecionar o carro mais novo
+db.veiculos.aggregate([
+ { $group: { _id: null, carroMaisNovo: { $max: "$Ano" } } }
+]);
