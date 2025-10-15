@@ -1,0 +1,99 @@
+//criar banco chamado livro
+use livro
+
+//Criar a coleção e inserir dois livros de exemplo
+db.livros.insertMany([
+{
+titulo: "O Mistério da Casa",
+autores: ["Ana Silva"],
+generos: ["Mistério", "Suspense"],
+dataPublicacao: new Date("2015-03-10"),
+palavrasChave: ["mistério", "investigação"],
+comentarios: [
+{
+usuario: "João",
+comentario: "Muito bom!",
+data: new Date("2020-05-01")
+},
+{
+usuario: "Maria",
+comentario: "Gostei do livro, muito empolgante",
+data: new Date("2020-10-03")
+},
+{
+usuario: "Gisele",
+comentario: "Poderia ser melhor…",
+data: new Date("2024-07-25")
+}
+]
+},
+{
+titulo: "Aventura nas Estrelas",
+autores: ["Carlos Mendes", "Beatriz Luz"],
+generos: ["Ficção", "Aventura"],
+dataPublicacao: new Date("2018-07-21"),
+palavrasChave: ["aventura", "espaço"],
+comentarios: []
+}
+])
+
+//Buscar livros de um gênero específico: "Mistério"
+db.livros.find({ generos: "Mistério" })
+
+//Adicionar um novo autor a um livro (sem duplicar)
+db.livros.updateOne(
+{ titulo: "O Mistério da Casa" },
+{ $addToSet: { autores: "Pedro Lima" } }
+)
+
+//Adicionar uma palavra-chave a um livro (sem duplicar)
+db.livros.updateOne(
+{ titulo: "O Mistério da Casa" },
+{ $addToSet: { palavrasChave: "suspense" } }
+)
+
+//Buscar livros com uma palavra-chave específica: "aventura"
+db.livros.find({ palavrasChave: "aventura" })
+
+//Adicionar um comentário a um livro
+db.livros.updateOne(
+{ titulo: "Aventura nas Estrelas" },
+{
+$push: {
+comentarios: {
+usuario: "Maria",
+comentario: "Excelente leitura!",
+data: new Date("2023-11-15")
+}
+}
+}
+)
+
+//Listar livros com múltiplos autores
+db.livros.find({ "autores.1": { $exists: true } })
+
+//Excluir um autor de um livro
+db.livros.updateOne(
+{ titulo: "Aventura nas Estrelas" },
+{ $pull: { autores: "Beatriz Luz" } }
+)
+
+//Buscar livros com comentário de um usuário específico: "João"
+db.livros.find({ "comentarios.usuario": "João" })
+
+//Buscar livros publicados após 2010
+db.livros.find({ dataPublicacao: { $gt: new Date("2010-12-31") } })
+
+//Alterar o conteúdo de um comentário específico
+db.livros.updateOne(
+{
+titulo: "O Mistério da Casa",
+"comentarios.usuario": "João"
+},
+{
+$set: {
+"comentarios.$.comentario": "Uma leitura instigante!"
+}
+}
+)
+
