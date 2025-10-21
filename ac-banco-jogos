@@ -1,0 +1,100 @@
+use CatalogoGames
+
+db.jogos.insertMany([
+    {
+        _id: 1,
+        titulo: "Cyberpunk 2077",
+        desenvolvedora: "CD Projekt Red",
+        genero: ["Futuristico","Ação", "Mundo Aberto"],
+        plataformas: ["PC", "PS5", "Xbox Series X"],
+        avaliacoes: [
+          { user: "laura123", nota: 8 , comentario: "Jogo muito futurista" },
+          { user: "pPedro321", nota: 10, comentario: "Incrivel"}
+          ],
+        DLC: [
+            { nome: "Phantom Liberty", preco: 29.99 }
+        ]
+    },
+    {
+        _id: 2,
+        titulo: "Hades",
+        desenvolvedora: "Supergiant Games",
+        genero: ["Roguelike", "Indie"],
+        plataformas: ["PC", "Nintendo Switch", "PS4", "Xbox One"],
+        avaliacoes: [
+          { user: "laura123", nota: 6, comentario: "Gostei"},
+          { user: "elish45", nota: 9, comentario: "Um dos meus jogos preferidos"}
+        ],
+        DLC: [
+            { nome: "Art Book", preco: 19.99 }
+        ]
+    },
+    {
+        _id: 3,
+        titulo: "Forza Horizon 5",
+        desenvolvedora: "Playground Games",
+        genero: ["Corrida", "Mundo Aberto"],
+        plataformas: ["PC", "Xbox Series X", "Xbox One"],
+        avaliacoes: [
+          { user: "mat1010", nota: 10, comentario: "Melhor jogo de corrida de todos!!"},
+          { user: "flipe", nota: 8, comentario: "Adoro esse jogo"}
+        ],
+        DLC: [
+            { nome: "Hot Wheels Expansion", preco: 49.99 },
+            { nome: "Rally Adventure", preco: 69.99 }
+        ]
+    },
+    {
+        _id: 4,
+        titulo: "Stardew Valley",
+        desenvolvedora: "ConcernedApe",
+        genero: ["Simulação", "RPG", "Indie"],
+        plataformas: ["PC", "Nintendo Switch", "PS4", "Xbox One", "Mobile"],
+        avaliacoes: [
+          { user: "laura123", nota: 10, comentario: "Amo esse jogo"}
+        ],
+        DLC: []
+    }
+]);
+
+db.jogos.find({})
+
+db.jogos.find({}, { titulo: 1, desenvolvedora: 1, _id: 0 })
+
+db.jogos.find({ genero: "Indie" })
+
+db.jogos.find({ plataformas: "PS4" })
+
+//fazer o numero 5
+
+db.jogos.updateOne(
+    { _id: 1 },
+    { $addToSet: { plataformas: "PS4" } }
+);
+
+db.jogos.updateOne(
+    { _id: 1 },
+    { $addToSet: { genero: "Ficção Científica" } }
+);
+
+db.jogos.updateOne(
+    { _id: 2 },
+    { $set: { "genero.0": "Aventura" } }
+);
+
+db.jogos.updateOne(
+    { _id: 1 },
+    { $pull: { plataformas: "PS4" } }
+); //ver
+
+//fazer o 5 de remover avaliação
+
+db.jogos.find({})
+
+db.jogos.find({ _id: 1, plataformas: "PS4" })
+
+db.jogos.find({ "avaliacoes.nota": { $gt: 9 } }) //ver
+
+db.jogos.find({ "DLC.nome": "Phantom Liberty" })
+
+
