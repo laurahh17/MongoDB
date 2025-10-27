@@ -65,7 +65,7 @@ db.jogos.find({ genero: "Indie" })
 
 db.jogos.find({ plataformas: "PS4" })
 
-//fazer o numero 5
+db.jogos.find({"plataformas.3": {$exists: true}})
 
 db.jogos.updateOne(
     { _id: 1 },
@@ -85,16 +85,17 @@ db.jogos.updateOne(
 db.jogos.updateOne(
     { _id: 1 },
     { $pull: { plataformas: "PS4" } }
-); //ver
+);
 
-//fazer o 5 de remover avaliação
+db.jogos.updateOne(
+ { _id: 1 },
+ { $pop: { avaliacoes: 1 } }
+)
 
 db.jogos.find({})
 
 db.jogos.find({ _id: 1, plataformas: "PS4" })
 
-db.jogos.find({ "avaliacoes.nota": { $gt: 9 } }) //ver
+db.jogos.find({ "avaliacoes.nota": { $gt: 9 } })
 
 db.jogos.find({ "DLC.nome": "Phantom Liberty" })
-
-
