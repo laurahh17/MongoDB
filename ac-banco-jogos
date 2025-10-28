@@ -57,45 +57,65 @@ db.jogos.insertMany([
     }
 ]);
 
+//1
 db.jogos.find({})
 
+//2
 db.jogos.find({}, { titulo: 1, desenvolvedora: 1, _id: 0 })
 
-db.jogos.find({ genero: "Indie" })
+//3
+db.jogos.find({ genero: "Indie" }, { titulo: 1, desenvolvedora: 1, _id: 0, genero: 1})
 
+//4
 db.jogos.find({ plataformas: "PS4" })
 
+//5
 db.jogos.find({"plataformas.3": {$exists: true}})
 
+//6
 db.jogos.updateOne(
     { _id: 1 },
     { $addToSet: { plataformas: "PS4" } }
 );
 
+//7
 db.jogos.updateOne(
     { _id: 1 },
     { $addToSet: { genero: "Ficção Científica" } }
 );
 
+//8
 db.jogos.updateOne(
     { _id: 2 },
     { $set: { "genero.0": "Aventura" } }
 );
 
+//9
 db.jogos.updateOne(
     { _id: 1 },
     { $pull: { plataformas: "PS4" } }
 );
 
+//10
 db.jogos.updateOne(
  { _id: 1 },
  { $pop: { avaliacoes: 1 } }
 )
 
+//11
 db.jogos.find({})
 
-db.jogos.find({ _id: 1, plataformas: "PS4" })
+//12
+db.jogos.find(
+{ titulo: "Cyberpunk 2077", plataformas: "PS5"},
+{ _id: 0, titulo: 1, plataformas: 1 }
+)
 
+//13
 db.jogos.find({ "avaliacoes.nota": { $gt: 9 } })
 
-db.jogos.find({ "DLC.nome": "Phantom Liberty" })
+//14
+db.jogos.find(
+{ "DLC.nome": "Phantom Liberty" },
+{_id: 0, titulo: 1, DLC: 1 }
+)
