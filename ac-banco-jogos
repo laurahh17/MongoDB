@@ -119,3 +119,6 @@ db.jogos.find(
 { "DLC.nome": "Phantom Liberty" },
 {_id: 0, titulo: 1, DLC: 1 }
 )
+
+
+
